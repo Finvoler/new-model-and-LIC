@@ -1,0 +1,13 @@
+==========================================
+  LIC + LightGCN 对齐实验
+  Seed=2026  LR=0.005  Batch=4096  Patience=4
+  LIC: alpha=0.1 top_k=10 heads=2
+==========================================
+[启动] 修复后的 LIC
+[启动] LightGCN 基线
+LIC PID=16892
+LightGCN PID=16893
+监控: tail -f logs/log_lic_fixed.txt logs/log_lightgcn.txt
+==========================================
+  LIC + LightGCN 实验完成
+==========================================

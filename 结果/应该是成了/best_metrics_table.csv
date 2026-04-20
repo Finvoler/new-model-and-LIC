@@ -1,0 +1,6 @@
+﻿排名,模型,AUC,AUC_Epoch,Recall@10,Recall@10_Epoch,NDCG@10,NDCG@10_Epoch,Recall@20,Recall@20_Epoch,NDCG@20,NDCG@20_Epoch,来源文件
+1,fourier_add,0.8774,80,0.0503,93,0.0949,100,0.0819,85,0.0907,85,log_fourier_add.txt
+2,gaussian,0.8752,39,0.0494,99,0.0908,99,0.0804,99,0.0878,99,log_gaussian.txt
+3,fourier_mlp,0.8802,48,0.0424,49,0.0787,49,0.0712,49,0.0770,49,log_fourier_mlp.txt
+4,fourier_concat,0.8581,52,0.0367,63,0.0678,63,0.0621,52,0.0667,52,log_fourier_concat.txt
+5,lic,0.7487,3,0.0155,5,0.0314,3,0.0250,5,0.0290,3,log_lic.txt

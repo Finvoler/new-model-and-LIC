@@ -1,0 +1,56 @@
+==================================================
+配置清单:
+  dataset: taobao
+  data_dir: data/taobao_subset
+  bpr_batch_size: 4096
+  min_user_inter: 5
+  min_item_inter: 5
+  test_u_batch_size: 200
+  latent_dim_rec: 64
+  lightGCN_n_layers: 3
+  lr: 0.005
+  decay: 0.0001
+  epochs: 2
+  patience: 15
+  eval_every: 1
+  max_test_samples: 0
+  topks: [10, 20]
+  device: cuda
+  seed: 2026
+  use_amp: False
+  use_compile: False
+  tb_log_dir: /root/tf-logs/subset_test
+  n_clusters: 4
+  fourier_k: 3
+  tau: 0.1
+  entropy_weight: 0.01
+  fusion_mode: add
+  temporal_model: lic
+  time_diff_bins: 96
+  time_diff_sigma_hours: 1.5
+  time_diff_alpha: 8.0
+  clock_emb_dim: 64
+  clock_gaussian_mu: 0.0
+  clock_gaussian_sigma: 1.0
+  lic_top_k: 30
+  lic_n_heads: 4
+  lic_d: 32
+  lic_alpha: 1.0
+  lic_max_behaviors: 100
+==================================================
+[1/3] 正在加载并处理淘宝数据集...
+筛选后: 用户数 1372, 物品数 945, 交互数 13746, 密度 0.010602
+[数据准备] 切分与构建字典:   0%|          | 0/1372 [00:00<?, ?it/s][数据准备] 切分与构建字典: 100%|██████████| 1372/1372 [00:00<00:00, 14652.22it/s]
+数据加载完成。用户数: 1372, 物品数: 945
+训练集交互数: 10382, 图稀疏度: 0.008007
+[2/3] 正在构建 Time-Aware LightGCN 神经网络结构... (clock=lic)
+正在构建稀疏图结构 (使用 bmat 优化)...
+/root/new/dataloader.py:146: RuntimeWarning: divide by zero encountered in power
+  d_inv = np.power(rowsum, -0.5)
+[LR Scheduler] ReduceLROnPlateau: factor=0.5, patience=10, min_lr=0.000100
+[TensorBoard] 日志目录: /root/tf-logs/subset_test/lic
+[3/3] 开始训练...
+[模型训练] BPR Forward & Backward:   0%|          | 0/3 [00:00<?, ?it/s][模型训练] BPR Forward & Backward:   0%|          | 0/3 [00:00<?, ?it/s, bpr=0.6794][模型训练] BPR Forward & Backward:  33%|███▎      | 1/3 [00:01<00:02,  1.09s/it, bpr=0.6794][模型训练] BPR Forward & Backward:  33%|███▎      | 1/3 [00:01<00:02,  1.09s/it, bpr=0.6595][模型训练] BPR Forward & Backward:  67%|██████▋   | 2/3 [00:01<00:00,  1.31it/s, bpr=0.6595][模型训练] BPR Forward & Backward:  67%|██████▋   | 2/3 [00:01<00:00,  1.31it/s, bpr=0.6551][模型训练] BPR Forward & Backward: 100%|██████████| 3/3 [00:01<00:00,  1.83it/s, bpr=0.6551]                                                                                            EPOCH[1/2] BPR: 0.6647 | Reg: 0.9670 | Entropy: 0.0000 | LR: 0.005000
+[模型评估] Per-user 排名:   0%|          | 0/7 [00:00<?, ?it/s][模型评估] Per-user 排名:  29%|██▊       | 2/7 [00:00<00:00, 10.98it/s][模型评估] Per-user 排名:  57%|█████▋    | 4/7 [00:00<00:00, 11.13it/s][模型评估] Per-user 排名:  86%|████████▌ | 6/7 [00:00<00:00, 11.33it/s]                                                                       >>> [TEST] EPOCH[1] AUC: 0.6873 | Recall@10: 0.2981 | NDCG@10: 0.2932 | Recall@20: 0.3212 | NDCG@20: 0.3005  ★ New Best!
+[模型训练] BPR Forward & Backward:   0%|          | 0/3 [00:00<?, ?it/s][模型训练] BPR Forward & Backward:   0%|          | 0/3 [00:00<?, ?it/s, bpr=0.6479][模型训练] BPR Forward & Backward:  33%|███▎      | 1/3 [00:00<00:01,  1.89it/s, bpr=0.6479][模型训练] BPR Forward & Backward:  33%|███▎      | 1/3 [00:00<00:01,  1.89it/s, bpr=0.6359][模型训练] BPR Forward & Backward:  67%|██████▋   | 2/3 [00:01<00:00,  1.89it/s, bpr=0.6359][模型训练] BPR Forward & Backward:  67%|██████▋   | 2/3 [00:01<00:00,  1.89it/s, bpr=0.6278][模型训练] BPR Forward & Backward: 100%|██████████| 3/3 [00:01<00:00,  2.39it/s, bpr=0.6278]                                                                                            EPOCH[2/2] BPR: 0.6372 | Reg: 1.0032 | Entropy: 0.0000 | LR: 0.005000
+[模型评估] Per-user 排名:   0%|          | 0/7 [00:00<?, ?it/s][模型评估] Per-user 排名:  29%|██▊       | 2/7 [00:00<00:00, 10.85it/s][模型评估] Per-user 排名:  57%|█████▋    | 4/7 [00:00<00:00, 11.13it/s][模型评估] Per-user 排名:  86%|████████▌ | 6/7 [00:00<00:00, 11.21it/s]                                                                       >>> [TEST] EPOCH[2] AUC: 0.7028 | Recall@10: 0.3023 | NDCG@10: 0.2984 | Recall@20: 0.3324 | NDCG@20: 0.3076  ★ New Best!
